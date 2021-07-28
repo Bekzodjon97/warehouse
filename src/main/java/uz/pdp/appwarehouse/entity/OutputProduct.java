@@ -5,13 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"product_id","amount","price","output_id"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"product_id","amount","price","outputs_id"}))
 public class OutputProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +25,7 @@ public class OutputProduct {
     @Column(nullable = false)
     private Double  price;
 
-
     @ManyToOne
-    private Output  output;
+    private Outputs outputs;
 
 }

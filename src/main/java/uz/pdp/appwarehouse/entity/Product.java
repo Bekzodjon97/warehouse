@@ -30,7 +30,5 @@ public class Product extends AbsEntity {
     @ManyToOne
     private Measurement measurement;
 
-    @ManyToMany
-    private Set<Warehouse> warehouses;
 
 }

@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.appwarehouse.entity.*;
 import uz.pdp.appwarehouse.payload.InputProductDto;
-import uz.pdp.appwarehouse.payload.OutputProductDto;
 import uz.pdp.appwarehouse.payload.Result;
 import uz.pdp.appwarehouse.repository.InputProductRepository;
 import uz.pdp.appwarehouse.repository.InputRepository;
 import uz.pdp.appwarehouse.repository.ProductRepository;
-import uz.pdp.appwarehouse.repository.SupplierRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,29 +21,24 @@ public class InputProductService {
     ProductRepository productRepository;
     @Autowired
     InputRepository inputRepository;
-    @Autowired
-    SupplierRepository supplierRepository;
+
 
     public Result addInputProductService(InputProductDto inputProductDto){
         Optional<Product> optionalProduct = productRepository.findById(inputProductDto.getProductId());
         if (!optionalProduct.isPresent()) {
             return new Result("Bunday mahsulot mavjud  emas", false);
         }
-        Optional<Input> optionalInput = inputRepository.findById(inputProductDto.getInputId());
+        Optional<Inputs> optionalInput = inputRepository.findById(inputProductDto.getInputId());
         if (!optionalInput.isPresent()) {
             return new Result("Bunday kirim hujjati mavjud emas", false);
         }
-        Optional<Supplier> optionalSupplier = supplierRepository.findById(inputProductDto.getSupplierId());
-        if (!optionalSupplier.isPresent()) {
-            return new Result("Bunday yetkazib beruchi mavjud emas", false);
-        }
+
         InputProduct inputProduct=new InputProduct();
         inputProduct.setAmount(inputProductDto.getAmount());
-        inputProduct.setInput(optionalInput.get());
+        inputProduct.setInputs(optionalInput.get());
         inputProduct.setProduct(optionalProduct.get());
         inputProduct.setPrice(inputProductDto.getPrice());
         inputProduct.setExpireDate(inputProductDto.getExpireDate());
-        inputProduct.setSupplier(optionalSupplier.get());
         inputProductRepository.save(inputProduct);
         return new Result("Muaffaqiyatli saqlandi",true);
     }
@@ -81,21 +74,17 @@ public class InputProductService {
         if (!optionalProduct.isPresent()) {
             return new Result("Bunday  mahsulot mavjud  emas", false);
         }
-        Optional<Input> optionalInput = inputRepository.findById(inputProductDto.getInputId());
+        Optional<Inputs> optionalInput = inputRepository.findById(inputProductDto.getInputId());
         if (!optionalInput.isPresent()) {
             return new Result("Bunday kirim  hujjati mavjud emas", false);
         }
-        Optional<Supplier> optionalSupplier = supplierRepository.findById(inputProductDto.getSupplierId());
-        if (!optionalSupplier.isPresent()) {
-            return new Result("Bunday yetkazib beruchi mavjud emas", false);
-        }
+
         InputProduct inputProduct=optionalInputProduct.get();
         inputProduct.setAmount(inputProductDto.getAmount());
-        inputProduct.setInput(optionalInput.get());
+        inputProduct.setInputs(optionalInput.get());
         inputProduct.setProduct(optionalProduct.get());
         inputProduct.setPrice(inputProductDto.getPrice());
         inputProduct.setExpireDate(inputProductDto.getExpireDate());
-        inputProduct.setSupplier(optionalSupplier.get());
         inputProductRepository.save(inputProduct);
         return new Result("Muaffaqiyatli o'zgartirildi",true);
     }

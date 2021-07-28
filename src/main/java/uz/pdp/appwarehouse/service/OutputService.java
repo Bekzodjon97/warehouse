@@ -3,7 +3,6 @@ package uz.pdp.appwarehouse.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.appwarehouse.entity.*;
-import uz.pdp.appwarehouse.payload.InputDto;
 import uz.pdp.appwarehouse.payload.OutputDto;
 import uz.pdp.appwarehouse.payload.Result;
 import uz.pdp.appwarehouse.repository.*;
@@ -39,29 +38,29 @@ public class OutputService {
         if (!optionalCurrency.isPresent()) {
             return new Result("Bunday valyuta mavjud emas",false);
         }
-        Output output=new Output();
-        output.setFactureNumber(outputDto.getFactureNumber());
-        output.setCode(getCode());
-        output.setCurrency(optionalCurrency.get());
-        output.setClient(optionalClient.get());
-        output.setWarehouse(optionalWarehouse.get());
-        output.setDate(Timestamp.valueOf(LocalDateTime.now()));
-        outputRepository.save(output);
+        Outputs outputs =new Outputs();
+        outputs.setFactureNumber(outputDto.getFactureNumber());
+        outputs.setCode(getCode());
+        outputs.setCurrency(optionalCurrency.get());
+        outputs.setClient(optionalClient.get());
+        outputs.setWarehouse(optionalWarehouse.get());
+        outputs.setDate(Timestamp.valueOf(LocalDateTime.now()));
+        outputRepository.save(outputs);
         return new Result("Muvaffaqiyatli saqlandi", true);
 
     }
-    public List<Output> getOutput(){
+    public List<Outputs> getOutput(){
         return outputRepository.findAll();
     }
-    public  Output getOutputById(Integer id){
-        Optional<Output> optionalOutput = outputRepository.findById(id);
+    public Outputs getOutputById(Integer id){
+        Optional<Outputs> optionalOutput = outputRepository.findById(id);
         if (!optionalOutput.isPresent()) {
-            return new Output();
+            return new Outputs();
         }
         return optionalOutput.get();
     }
     public  Result deleteOutput(Integer id){
-        Optional<Output> optionalOutput = outputRepository.findById(id);
+        Optional<Outputs> optionalOutput = outputRepository.findById(id);
         if (!optionalOutput.isPresent()) {
             return new Result("Output not found", false);
         }
@@ -73,7 +72,7 @@ public class OutputService {
         }
     }
     public Result updateOutput(Integer id, OutputDto outputDto){
-        Optional<Output> optionalOutput = outputRepository.findById(id);
+        Optional<Outputs> optionalOutput = outputRepository.findById(id);
         if (!optionalOutput.isPresent()) {
             return new Result("Chiqim mavjud emas", false);
         }
@@ -89,13 +88,13 @@ public class OutputService {
         if (!optionalCurrency.isPresent()) {
             return new Result("Bunday valyuta mavjud emas",false);
         }
-        Output output=optionalOutput.get();
-        output.setFactureNumber(outputDto.getFactureNumber());
-        output.setCurrency(optionalCurrency.get());
-        output.setClient(optionalClient.get());
-        output.setWarehouse(optionalWarehouse.get());
-        output.setDate(Timestamp.valueOf(LocalDateTime.now()));
-        outputRepository.save(output);
+        Outputs outputs =optionalOutput.get();
+        outputs.setFactureNumber(outputDto.getFactureNumber());
+        outputs.setCurrency(optionalCurrency.get());
+        outputs.setClient(optionalClient.get());
+        outputs.setWarehouse(optionalWarehouse.get());
+        outputs.setDate(Timestamp.valueOf(LocalDateTime.now()));
+        outputRepository.save(outputs);
         return new Result("Muvaffaqiyatli o'zgartirildi", true);
     }
     public Integer getCode(){

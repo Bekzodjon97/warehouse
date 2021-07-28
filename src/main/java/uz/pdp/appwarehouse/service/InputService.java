@@ -38,29 +38,29 @@ public class InputService {
         if (!optionalCurrency.isPresent()) {
             return new Result("Bunday valyuta mavjud emas",false);
         }
-        Input input=new Input();
-        input.setFactureNumber(inputDto.getFactureNumber());
-        input.setCode(getCode());
-        input.setCurrency(optionalCurrency.get());
-        input.setSupplier(optionalSupplier.get());
-        input.setWarehouse(optionalWarehouse.get());
-        input.setDate(Timestamp.valueOf(LocalDateTime.now()));
-        inputRepository.save(input);
+        Inputs inputs =new Inputs();
+        inputs.setFactureNumber(inputDto.getFactureNumber());
+        inputs.setCode(getCode());
+        inputs.setCurrency(optionalCurrency.get());
+        inputs.setSupplier(optionalSupplier.get());
+        inputs.setWarehouse(optionalWarehouse.get());
+        inputs.setDate(Timestamp.valueOf(LocalDateTime.now()));
+        inputRepository.save(inputs);
         return new Result("Muvaffaqiyatli saqlandi", true);
 
     }
-    public List<Input> getInput(){
+    public List<Inputs> getInput(){
         return inputRepository.findAll();
     }
-    public  Input getInputById(Integer id){
-        Optional<Input> optionalInput = inputRepository.findById(id);
+    public Inputs getInputById(Integer id){
+        Optional<Inputs> optionalInput = inputRepository.findById(id);
         if (!optionalInput.isPresent()) {
-            return new Input();
+            return new Inputs();
         }
         return optionalInput.get();
     }
     public  Result deleteInput(Integer id){
-        Optional<Input> optionalInput = inputRepository.findById(id);
+        Optional<Inputs> optionalInput = inputRepository.findById(id);
         if (!optionalInput.isPresent()) {
             return new Result("Input not found", false);
         }
@@ -72,7 +72,7 @@ public class InputService {
         }
     }
     public Result updateInput(Integer id, InputDto inputDto){
-        Optional<Input> optionalInput = inputRepository.findById(id);
+        Optional<Inputs> optionalInput = inputRepository.findById(id);
         if (!optionalInput.isPresent()) {
             return new Result("Bunday kirim mavjud emas", false);
         }
@@ -88,13 +88,13 @@ public class InputService {
         if (!optionalCurrency.isPresent()) {
             return new Result("Bunday valyuta mavjud emas",false);
         }
-        Input input=optionalInput.get();
-        input.setFactureNumber(inputDto.getFactureNumber());
-        input.setCurrency(optionalCurrency.get());
-        input.setSupplier(optionalSupplier.get());
-        input.setWarehouse(optionalWarehouse.get());
-        input.setDate(Timestamp.valueOf(LocalDateTime.now()));
-        inputRepository.save(input);
+        Inputs inputs =optionalInput.get();
+        inputs.setFactureNumber(inputDto.getFactureNumber());
+        inputs.setCurrency(optionalCurrency.get());
+        inputs.setSupplier(optionalSupplier.get());
+        inputs.setWarehouse(optionalWarehouse.get());
+        inputs.setDate(Timestamp.valueOf(LocalDateTime.now()));
+        inputRepository.save(inputs);
         return new Result("Muvaffaqiyatli o'zgartirildi", true);
     }
     public Integer getCode(){

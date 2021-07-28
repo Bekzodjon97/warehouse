@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Data
 @Entity
-public class Input {
+public class Inputs {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

@@ -4,16 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class ProductDto {
+public class DailyIncome {
     private String name;
-    private  Integer categoryId;
-    private  Integer photoId;
-    private  Integer measurementId;
-
-
+    private Double amount;
+    private Double totalPrice;
 }

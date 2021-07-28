@@ -2,9 +2,7 @@ package uz.pdp.appwarehouse.controllar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.pdp.appwarehouse.entity.Input;
-import uz.pdp.appwarehouse.entity.Output;
-import uz.pdp.appwarehouse.payload.InputDto;
+import uz.pdp.appwarehouse.entity.Outputs;
 import uz.pdp.appwarehouse.payload.OutputDto;
 import uz.pdp.appwarehouse.payload.Result;
 import uz.pdp.appwarehouse.service.OutputService;
@@ -27,14 +25,14 @@ public class OutputController {
 
     //READ
     @GetMapping
-    public List<Output> get(){
+    public List<Outputs> get(){
         return outputService.getOutput();
     }
 
 
     //READ BY ID
     @GetMapping(value = "/{id}")
-    public Output getById(@PathVariable Integer id){
+    public Outputs getById(@PathVariable Integer id){
         return outputService.getOutputById(id);
     }
 

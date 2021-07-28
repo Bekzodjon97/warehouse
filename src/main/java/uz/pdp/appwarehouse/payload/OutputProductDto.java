@@ -3,11 +3,8 @@ package uz.pdp.appwarehouse.payload;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uz.pdp.appwarehouse.entity.Output;
-import uz.pdp.appwarehouse.entity.Product;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +16,8 @@ public class OutputProductDto {
     private Double  amount;
 
     private Double  price;
+
+    private Date expireDate;
 
     private Integer outputId;
 

@@ -2,8 +2,7 @@ package uz.pdp.appwarehouse.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uz.pdp.appwarehouse.entity.Client;
-import uz.pdp.appwarehouse.entity.Output;
+import uz.pdp.appwarehouse.entity.Outputs;
 import uz.pdp.appwarehouse.entity.OutputProduct;
 import uz.pdp.appwarehouse.entity.Product;
 import uz.pdp.appwarehouse.payload.OutputProductDto;
@@ -26,7 +25,7 @@ public class OutputProductService {
     OutputRepository outputRepository;
 
     public Result addOutputProductService(OutputProductDto outputProductDto){
-        boolean existsByProductIdAndAmountAndPriceAndOutputId = outputProductRepository.existsByProductIdAndAmountAndPriceAndOutputId(outputProductDto.getProductId(),outputProductDto.getAmount(),outputProductDto.getPrice(),outputProductDto.getOutputId());
+        boolean existsByProductIdAndAmountAndPriceAndOutputId = outputProductRepository.existsByProductIdAndAmountAndPriceAndOutputsId(outputProductDto.getProductId(),outputProductDto.getAmount(),outputProductDto.getPrice(),outputProductDto.getOutputId());
         if (existsByProductIdAndAmountAndPriceAndOutputId) {
             return new Result("Bunday chiqim mavjud", false);
         }
@@ -34,13 +33,13 @@ public class OutputProductService {
         if (!optionalProduct.isPresent()) {
             return new Result("Bunday mahsulot mavjud emas", false);
         }
-        Optional<Output> optionalOutput = outputRepository.findById(outputProductDto.getOutputId());
+        Optional<Outputs> optionalOutput = outputRepository.findById(outputProductDto.getOutputId());
         if (!optionalOutput.isPresent()) {
             return new Result("Bunday chiqim hujjati mavjud emas", false);
         }
         OutputProduct outputProduct=new OutputProduct();
         outputProduct.setAmount(outputProductDto.getAmount());
-        outputProduct.setOutput(optionalOutput.get());
+        outputProduct.setOutputs(optionalOutput.get());
         outputProduct.setProduct(optionalProduct.get());
         outputProduct.setPrice(outputProductDto.getPrice());
         outputProductRepository.save(outputProduct);
@@ -73,7 +72,7 @@ public class OutputProductService {
         if (!optionalOutputProduct.isPresent()) {
             return new Result("Bunday chiquvchi mahsulot mavjud emas", false);
         }
-        boolean existsByProductIdAndAmountAndPriceAndOutputId = outputProductRepository.existsByProductIdAndAmountAndPriceAndOutputId(outputProductDto.getProductId(),outputProductDto.getAmount(),outputProductDto.getPrice(),outputProductDto.getOutputId());
+        boolean existsByProductIdAndAmountAndPriceAndOutputId = outputProductRepository.existsByProductIdAndAmountAndPriceAndOutputsId(outputProductDto.getProductId(),outputProductDto.getAmount(),outputProductDto.getPrice(),outputProductDto.getOutputId());
         if (existsByProductIdAndAmountAndPriceAndOutputId) {
             return new Result("Bunday chiqim  mavjud", false);
         }
@@ -81,13 +80,13 @@ public class OutputProductService {
         if (!optionalProduct.isPresent()) {
             return new Result("Bunday mahsulot mavjud emas", false);
         }
-        Optional<Output> optionalOutput = outputRepository.findById(outputProductDto.getOutputId());
+        Optional<Outputs> optionalOutput = outputRepository.findById(outputProductDto.getOutputId());
         if (!optionalOutput.isPresent()) {
             return new Result("Bunday chiqim hujjati mavjud emas", false);
         }
         OutputProduct outputProduct=optionalOutputProduct.get();
         outputProduct.setAmount(outputProductDto.getAmount());
-        outputProduct.setOutput(optionalOutput.get());
+        outputProduct.setOutputs(optionalOutput.get());
         outputProduct.setProduct(optionalProduct.get());
         outputProduct.setPrice(outputProductDto.getPrice());
         outputProductRepository.save(outputProduct);

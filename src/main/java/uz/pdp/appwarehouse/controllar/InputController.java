@@ -2,8 +2,7 @@ package uz.pdp.appwarehouse.controllar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.pdp.appwarehouse.entity.Client;
-import uz.pdp.appwarehouse.entity.Input;
+import uz.pdp.appwarehouse.entity.Inputs;
 import uz.pdp.appwarehouse.payload.InputDto;
 import uz.pdp.appwarehouse.payload.Result;
 import uz.pdp.appwarehouse.service.InputService;
@@ -26,14 +25,14 @@ public class InputController {
 
     //READ
     @GetMapping
-    public List<Input> get(){
+    public List<Inputs> get(){
         return inputService.getInput();
     }
 
 
     //READ BY ID
     @GetMapping(value = "/{id}")
-    public Input getById(@PathVariable Integer id){
+    public Inputs getById(@PathVariable Integer id){
         return inputService.getInputById(id);
     }
 
